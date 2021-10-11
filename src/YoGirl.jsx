@@ -8,11 +8,9 @@ export const YoGirl = () => {
     })
 
     return (
-        <>
-            <audio id='yogirl' controls autoPlay muted>
-                <source src="yogirl.mp3" type="audio/mpeg" />
-                Your browser does not support the audio element.
-            </audio>
-        </>
+        <audio id='yogirl' controls autoPlay className='player'>
+            <source src="yogirl.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+        </audio>
     )
 }

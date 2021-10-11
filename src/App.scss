@@ -1,0 +1,68 @@
+.App {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url('confetti.jpeg');
+}
+
+.fadecycle {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+img {
+    max-height: 100vh;
+    min-height: 100vh;
+}
+.fadecycle img {
+    opacity: 0;
+    position: absolute;
+    line-height: 200px;
+    text-align: center;
+  }
+
+  // Animation settings
+  $totalTime: 104s;
+  $items: 13;
+  $transitionSpeed: 2;
+
+  // Calculate transition + display time in seconds
+  $transitionTime: 0s + $totalTime / ($items * $transitionSpeed * 2);
+  $displayTime: (0s + $totalTime - ($transitionTime * $items)) / $items;
+
+  // Set transition for each element
+  @for $i from 1 through $items {
+    .fadecycle img:nth-child(#{$i}) {
+      // Delay is increased for each item
+      // starting with an offset of -$transitionTime so the first element is displayed on load
+      $delay: -$transitionTime + ($transitionTime + $displayTime) * ($i - 1);
+      animation: fadeinout $totalTime linear $delay infinite;
+    }
+  }
+
+  // Calculate percentages of the times for keyframes
+  $transitionPercentage: 0% + 100 * ($transitionTime / $totalTime);
+  $displayPercentage: 0% + 100 * ($displayTime / $totalTime);
+
+  @keyframes fadeinout {
+    0% {
+      opacity: 0;
+    }
+    #{$transitionPercentage},
+    #{$transitionPercentage + $displayPercentage} {
+      opacity: 1;
+    }
+    #{$transitionPercentage + $displayPercentage + $transitionPercentage},
+    100% {
+      opacity: 0;
+    }
+  }
+
+.player {
+    position: absolute;
+    z-index: 100;
+}
